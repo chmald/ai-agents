@@ -2,7 +2,7 @@
 
 import os
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 import httpx
 
 logger = logging.getLogger(__name__)
