@@ -1,0 +1,66 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # API Gateway
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['api-gateway:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # AI Agents
+  - job_name: 'coding-agent'
+    static_configs:
+      - targets: ['coding-agent:8081']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'marketing-agent'
+    static_configs:
+      - targets: ['marketing-agent:8082']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'security-agent'
+    static_configs:
+      - targets: ['security-agent:8083']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'bizdev-agent'
+    static_configs:
+      - targets: ['bizdev-agent:8084']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Supporting Services
+  - job_name: 'licensing-service'
+    static_configs:
+      - targets: ['licensing-service:8085']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Infrastructure
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+
+  - job_name: 'keycloak'
+    static_configs:
+      - targets: ['keycloak:8080']
+    metrics_path: '/metrics'
+
+  # Self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
