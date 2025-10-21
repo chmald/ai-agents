@@ -2,7 +2,7 @@
 **A multi‑tenant, agent‑based platform that automates coding, security, marketing, and business‑development.**  
 
 > The project is split into micro‑services that can be run locally, in Kubernetes, or in a SaaS‑style "multi‑tenant" deployment.  
-> Each agent is a thin wrapper around an LLM (GPT‑4o‑mini or Llama‑2‑70B).  
+> Each agent is a thin wrapper around an LLM (Azure OpenAI GPT‑4o‑mini or local models).  
 > The stack is intentionally container‑native so that you can ship a single `docker‑compose.yaml` to a new customer, or build a Helm chart for a managed Kubernetes deployment.  
 
 ---
@@ -255,6 +255,7 @@ docker run -p 8081:8081 myorg/marketing-agent
 * `docs/architecture.md` – Full architecture diagram and component description.  
 * `docs/deployment.md` – K8s/Helm deployment instructions, scaling, autoscaling.  
 * `docs/developer.md` – How to add a new agent, update the LLM, write actions.  
+* `docs/azure-openai-migration.md` – Guide for setting up and using Azure OpenAI.  
 
 All docs are written in Markdown so you can render them with any static site generator (MkDocs, Hugo, etc.).
 

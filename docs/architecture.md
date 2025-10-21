@@ -43,7 +43,7 @@ The AI-Powered Business Ecosystem is built as a microservices architecture with 
 | Layer | Technologies |
 |-------|-------------|
 | **API Layer** | FastAPI, HTTP/REST, WebSockets |
-| **Agent Framework** | LangGraph, LangChain, OpenAI GPT-4o-mini |
+| **Agent Framework** | LangGraph, LangChain, Azure OpenAI GPT-4o-mini |
 | **Authentication** | Keycloak, JWT, OIDC |
 | **Database** | PostgreSQL, Redis |
 | **Message Queue** | Apache Kafka |

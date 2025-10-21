@@ -3,15 +3,15 @@
 import logging
 from typing import Dict, Any, TypedDict
 from langgraph.graph import StateGraph, START, END
-from langchain.schema import HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 import sys
 import os
 
 # Add parent directories to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 from llm.openai_client import llm
-from .actions import post_tweet, send_slack_notification, analyze_sentiment
+from agents.marketing_agent.actions import post_tweet, send_slack_notification, analyze_sentiment
 
 logger = logging.getLogger(__name__)
 

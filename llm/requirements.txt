@@ -4,3 +4,4 @@ langchain-community>=0.1.0
 openai>=1.0.0
 ollama>=0.1.0
 httpx>=0.24.0
+# Azure OpenAI support is included in langchain-openai>=0.1.0

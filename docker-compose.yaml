@@ -25,42 +25,62 @@ services:
 
   # AI Agents
   coding-agent:
-    build: ./agents/coding_agent
+    build:
+      context: .
+      dockerfile: ./agents/coding_agent/Dockerfile
     ports:
       - "8081:8081"
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4o-mini}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION:-2024-02-15-preview}
       - GITLAB_TOKEN=${GITLAB_TOKEN}
       - GITLAB_URL=${GITLAB_URL:-https://gitlab.com/api/v4}
     networks:
       - ecosystem
 
   marketing-agent:
-    build: ./agents/marketing_agent
+    build:
+      context: .
+      dockerfile: ./agents/marketing_agent/Dockerfile
     ports:
       - "8082:8082"
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4o-mini}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION:-2024-02-15-preview}
       - TWITTER_BEARER_TOKEN=${TWITTER_BEARER_TOKEN}
       - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
     networks:
       - ecosystem
 
   security-agent:
-    build: ./agents/security_agent
+    build:
+      context: .
+      dockerfile: ./agents/security_agent/Dockerfile
     ports:
       - "8083:8083"
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4o-mini}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION:-2024-02-15-preview}
     networks:
       - ecosystem
 
   bizdev-agent:
-    build: ./agents/bizdev_agent
+    build:
+      context: .
+      dockerfile: ./agents/bizdev_agent/Dockerfile
     ports:
       - "8084:8084"
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4o-mini}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION:-2024-02-15-preview}
       - SALESFORCE_INSTANCE_URL=${SALESFORCE_INSTANCE_URL}
       - SALESFORCE_ACCESS_TOKEN=${SALESFORCE_ACCESS_TOKEN}
       - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}

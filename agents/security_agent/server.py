@@ -1,10 +1,16 @@
 """HTTP server for the security agent."""
 
 import logging
+import sys
+import os
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from .agent import SecurityAgent
+
+# Add parent directories to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
+from agents.security_agent.agent import SecurityAgent
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

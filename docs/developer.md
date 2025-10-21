@@ -11,7 +11,7 @@ The system is built using a microservices architecture with the following key co
 - **API Gateway** (FastAPI): Routes requests and handles authentication
 - **AI Agents** (LangGraph): Core business logic for each domain
 - **External Actions**: Integrations with GitLab, Twitter, Slack, CRMs
-- **LLM Abstraction**: Unified interface for OpenAI and local models
+- **LLM Abstraction**: Unified interface for Azure OpenAI and local models
 - **Supporting Services**: Licensing, metrics, monitoring
 
 ## Development Setup
@@ -274,7 +274,7 @@ async def agent_action(input_data):
 ### Using Different LLM Providers
 
 ```python
-# For OpenAI (default)
+# For Azure OpenAI (default)
 from llm.openai_client import llm
 
 # For local models
@@ -286,6 +286,17 @@ async def generate_response(prompt: str):
     messages = [HumanMessage(content=prompt)]
     response = await llm.agenerate(messages)
     return response[0].content
+```
+
+### Azure OpenAI Configuration
+
+Set the following environment variables to use Azure OpenAI:
+
+```bash
+AZURE_OPENAI_API_KEY=your-azure-openai-api-key
+AZURE_OPENAI_ENDPOINT=https://your-resource-name.openai.azure.com/
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o-mini
+AZURE_OPENAI_API_VERSION=2024-02-15-preview
 ```
 
 ### Prompt Engineering Best Practices

@@ -1,37 +1,42 @@
-"""OpenAI client wrapper for LLM interactions."""
+"""Azure OpenAI client wrapper for LLM interactions."""
 
 import os
 import logging
 from typing import List, Dict, Any, Optional
-from langchain_openai import ChatOpenAI
-from langchain.schema import BaseMessage, HumanMessage, SystemMessage, AIMessage
+from langchain_openai import AzureChatOpenAI
+from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, AIMessage
 
 logger = logging.getLogger(__name__)
 
 
-class OpenAIClient:
-    """OpenAI LLM client with rate limiting and error handling."""
+class AzureOpenAIClient:
+    """Azure OpenAI LLM client with rate limiting and error handling."""
     
     def __init__(self, model: str = "gpt-4o-mini", temperature: float = 0.7):
-        """Initialize OpenAI client.
+        """Initialize Azure OpenAI client.
         
         Args:
-            model: OpenAI model name
+            model: Azure OpenAI deployment name
             temperature: Sampling temperature
         """
         self.model = model
         self.temperature = temperature
-        self.api_key = os.getenv("OPENAI_API_KEY")
+        self.api_key = os.getenv("AZURE_OPENAI_API_KEY")
+        self.endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+        self.api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-15-preview")
+        self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", model)
         
-        if not self.api_key:
-            logger.warning("OPENAI_API_KEY not set, using demo mode")
+        if not self.api_key or not self.endpoint:
+            logger.warning("Azure OpenAI credentials not set, using demo mode")
             self._demo_mode = True
         else:
             self._demo_mode = False
-            self.client = ChatOpenAI(
-                model=model,
+            self.client = AzureChatOpenAI(
+                azure_deployment=self.deployment_name,
+                azure_endpoint=self.endpoint,
+                api_key=self.api_key,
+                api_version=self.api_version,
                 temperature=temperature,
-                openai_api_key=self.api_key,
                 max_tokens=1000
             )
     
@@ -54,7 +59,7 @@ class OpenAIClient:
             response = await self.client.agenerate([messages], **kwargs)
             return response.generations[0]
         except Exception as e:
-            logger.error(f"OpenAI API error: {e}")
+            logger.error(f"Azure OpenAI API error: {e}")
             # Fallback response
             return [AIMessage(content="I apologize, but I'm experiencing technical difficulties. Please try again later.")]
     
@@ -77,10 +82,13 @@ class OpenAIClient:
             response = self.client.generate([messages], **kwargs)
             return response.generations[0]
         except Exception as e:
-            logger.error(f"OpenAI API error: {e}")
+            logger.error(f"Azure OpenAI API error: {e}")
             # Fallback response
             return [AIMessage(content="I apologize, but I'm experiencing technical difficulties. Please try again later.")]
 
 
 # Default instance
-llm = OpenAIClient()
+llm = AzureOpenAIClient()
+
+# Backward compatibility alias
+OpenAIClient = AzureOpenAIClient

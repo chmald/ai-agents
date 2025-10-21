@@ -3,15 +3,15 @@
 import logging
 from typing import Dict, Any, TypedDict
 from langgraph.graph import StateGraph, START, END
-from langchain.schema import HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 import sys
 import os
 
 # Add parent directories to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 from llm.openai_client import llm
-from .actions import create_lead, find_existing_contact, schedule_followup, send_welcome_email
+from agents.bizdev_agent.actions import create_lead, find_existing_contact, schedule_followup, send_welcome_email
 
 logger = logging.getLogger(__name__)
 
